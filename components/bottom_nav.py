@@ -1,8 +1,18 @@
 import flet as ft
+from screens.home import HomeScreen
+from screens.exercises import ExercisesScreen
+from screens.workout import WorkoutScreen
+from screens.history import HistoryScreen
 
 class BottomNav:
     def __init__(self, page: ft.Page):
         self.page = page
+        self.screens = [
+            HomeScreen(page),
+            ExercisesScreen(page),
+            WorkoutScreen(page),
+            HistoryScreen(page),
+        ]
 
     def build(self):
         return ft.NavigationBar(
@@ -36,5 +46,12 @@ class BottomNav:
         
     def on_nav_change(self, e):
         index = e.control.selected_index
-        print(f"Selected index: {index}")
+        self.page.controls.clear()
+        self.page.add(
+            ft.SafeArea(
+                expand=True,
+                content=self.screens[index].build()
+            )
+        )
+        self.page.update()
         

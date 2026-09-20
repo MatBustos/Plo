@@ -58,7 +58,7 @@ class HomeScreen:
                                 )
                             ]
                         ),
-                        padding=0,
+                        padding=20,
                     )
                 )
             ]

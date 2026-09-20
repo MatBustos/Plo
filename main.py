@@ -1,20 +1,23 @@
 import flet as ft 
 from components.theme import apply_theme
-from screens.home import HomeScreen
 from components.bottom_nav import BottomNav
+from database.models import create_tables
+from database.seed_data import seed_exercises
 
 def main(page: ft.Page):
     apply_theme(page)
     page.title = "Plo"
     
-    home = HomeScreen(page)
-    nav = BottomNav(page)
+    create_tables()
+    seed_exercises()
     
+    nav = BottomNav(page)
     page.navigation_bar = nav.build()
     
     page.add(
         ft.SafeArea(
-            content=home.build()
+            expand=True,
+            content=nav.screens[0].build()
         )
     )
 
